@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>HTTP</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+			</script>
+			<div id="http-protocol">
+				<h1>HTTP Protocol</h1>
+					<p><strong>HTTP</strong> stands for <em>HyperText Transfer Protocol</em>. It is the foundation of data communication on the World Wide Web.</p>
+					<h2>What is HTTP?</h2>
+					<p>HTTP is a protocol used by web browsers and web servers to communicate.<br>
+					When you type a URL in your browser and press enter, your browser sends an HTTP request to the server, which then responds with the requested content (like a webpage, image, or video).</p>
+					<h2>Key Features</h2>
+					<ul>
+						<li><strong>Request/Response Model:</strong> The client (usually a browser) sends an HTTP request, and the server replies with an HTTP response.</li>
+						<li><strong>Stateless:</strong> Each request is independent. The server does not retain information about past requests unless managed 
+							by cookies or session tracking.</li>
+						<li><strong>Text-Based:</strong> HTTP messages are readable by humans and are structured in a plain-text format.</li>
+					</ul>
+					<h2>Common HTTP Methods</h2>
+					<ul>
+						<li><strong>GET</strong> Retrieve data from the server.</li>
+						<li><strong>POST</strong> Submit data to be processed (e.g., from a form).</li>
+						<li><strong>DELETE</strong> Remove data.</li>
+					</ul>
+					<h2>Structure of an HTTP Request</h2>
+					<img id="http-img" src="/assets/img/http-request.png" alt="HTTP request structure">
+					<h2>Structure of an HTTP Response</h2>
+					<img id="http-img" src="/assets/img/http-request.png" alt="HTTP request structure">
+					<h2>HTTP Status Codes</h2>
+					<ul>
+						<li><strong>1xx Informational:</strong> The request was received, continuing process.</li>
+						<li><strong>2xx Success:</strong> The request was successfully received, understood, and accepted.</li>
+						<li><strong>3xx Redirection:</strong> Further action needs to be taken to complete the request.</li>
+						<li><strong>4xx Client Error:</strong> The request contains bad syntax or cannot be fulfilled.</li>
+						<li><strong>5xx Server Error:</strong> The server failed to fulfill a valid request.</li>
+					</ul>
+			</div>
+		</div>
+	</body>
+</html>

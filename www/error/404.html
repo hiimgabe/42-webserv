@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<style>
+			body
+			{
+				font-family: 'Helvetica neue', Arial, sans-serif;
+				background: linear-gradient(0deg, rgba(176, 72, 169, 1) 35%, rgba(71, 139, 222, 1) 100%);
+				background-attachment: fixed;
+				background-size: cover;
+				color: #333;
+			}
+			#container
+			{
+				background-color: #fff;
+				margin: 5% auto;
+				min-height: 50%;
+				width: 80%;
+				padding: 2%;
+				border-radius: 15px;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+			}
+			#header
+			{
+				margin: 5% auto 0 auto;
+				text-align: center;
+			}
+			#webserv-logo
+			{
+				max-width: 400px;
+			}
+			#error-title
+			{
+				font-size: 150px;
+				text-align: center;
+			}
+			#error-text
+			{
+				font-size: 50px;
+				text-align: center;
+			}
+			#error-button
+			{
+				width: 10%;
+				margin: 0 auto;
+				display: block;
+			}
+			#error-button a
+			{
+				text-decoration: none;
+				color: white;
+				text-align: center;
+			}
+			button	{
+				padding: 10px 20px;
+				margin-top: 15px;
+				font-size: 16px;
+				background-color: rgba(71, 139, 222, 1);
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.2s ease;
+			}
+			button:hover {
+				background-color: rgba(176, 72, 169, 1);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<h1 id="error-title">404</h1>
+			<p id="error-text"><strong>Not Found</strong><br>The requested resource could not be found.</p>
+		</div>
+	</body>
+</html>

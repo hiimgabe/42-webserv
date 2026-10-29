@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>Home</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+			</script>
+			<div id="content">
+				<h1>Project Members</h1>
+				<section class="team">
+					<div class="team-profiles">
+						<div class="profile" id="team-member1">
+							<a href="https://github.com/hiimgabe" id="github-btn">gamoreir</a>
+						</div>
+						<div class="profile" id="team-member2">
+							<a href="https://github.com/gabrrodr" id="github-btn">gabrrodr</a>
+						</div>
+					</div>
+				</section>
+				<section class="about-webserv">
+					<div id="about">
+						<h2>About Webserv</h2>
+						<p>Webserv is about developing a simple web server entirely from scratch using C++. The main goal of this project 
+							is to deepen the understanding of low-level network programming and server implementation. The core of it lies 
+							in socket programming. The server handles client connections directly following c++98 standards.<br>
+							Webserv supports HTTP methods GET, POST and DELETE aswell as Commmon Gateway Interface(CGI) scripts to 
+							generate dynamic content.<br>
+							Webserv takes inspiration in Nginx by allowing the user to define server behaviour through a .conf file.
+						</p>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

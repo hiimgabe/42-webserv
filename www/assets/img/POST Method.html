@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="POST%20Method_files/main.css">
+		<link rel="stylesheet" href="POST%20Method_files/header.css">
+		<link rel="stylesheet" href="POST%20Method_files/navbar.css">
+		<title>POST Method</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="http://localhost:8080/">
+				<img id="webserv-logo" src="POST%20Method_files/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"><ul id="navbar-ul">
+	<li><a href="http://localhost:8080/">Home</a></li>
+	<li><a href="http://localhost:8080/http.html">HTTP</a></li>
+	<li><a href="http://localhost:8080/cgi.html">CGI</a></li>
+	<li><a href="http://localhost:8080/request-get.html">GET</a></li>
+	<li><a href="http://localhost:8080/request-post.html">POST</a></li>
+	<li><a href="http://localhost:8080/request-delete.html">DELETE</a></li>
+	<li><a href="http://localhost:8080/page-5.html">CGI</a></li>
+</ul></div>
+			<script>
+				document.addEventListener("DOMContentLoaded", () => {
+					// Load navbar HTML
+					fetch('/navbar.html')
+						.then(res => res.text())
+						.then(data => { document.getElementById('navbar').innerHTML = data; });
+								
+					// Handle textarea message post
+					function sendMessage() {
+						const msg = document.getElementById("msgBox").value;
+					
+						fetch("/", {
+							method: "POST",
+							headers: {
+								"Content-Type": "text/plain"
+							},
+							body: msg
+						})
+						.then(() => {
+							document.getElementById("display").innerText = msg;
+						})
+						.catch(err => {
+							alert("Message post failed: " + err.message);
+						});
+					}
+				
+					document.getElementById("msgSendBtn").addEventListener("click", sendMessage);
+				
+					// Intercept file upload form submission
+					const uploadForm = document.querySelector('form[action="/data"]');
+					uploadForm.addEventListener('submit', function (event) {
+						event.preventDefault();
+					
+						const formData = new FormData(uploadForm);
+					
+						fetch('/', {
+							method: 'POST',
+							body: formData
+						})
+						.then(response => {
+							if (!response.ok) throw new Error("Upload failed");
+							alert("File uploaded successfully!");
+						})
+						.catch(err => {
+							alert("Upload failed: " + err.message);
+						});
+					});
+				});
+			</script>
+			<div id="content">
+				<h1>POST METHOD TEST</h1>
+				<textarea id="msgBox" placeholder="Type your message to us!">ASDSADA</textarea>
+				<button id="msgSendBtn">Post</button> <!-- changed ID -->
+				<div id="display" class="message-output">ASDSADA</div>
+			</div>
+			<div>
+				<h2>Upload files</h2>
+				<form action="/data" method="post" enctype="multipart/form-data">
+					<label for="file">File</label>
+					<input type="file" name="file" id="file">
+					<button type="submit" id="fileUploadBtn">Upload</button> <!-- changed ID -->
+				</form>
+			</div>
+		</div>
+	
+</body></html>

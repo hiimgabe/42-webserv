@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>Server</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+			</script>
+			<div>
+				<h1>Understanding <code>poll()</code> and <code>handleIncomingConnections()</code></h1>
+
+				<h2>What is <code>poll()</code>?</h2>
+				<p>
+					<code>poll()</code> is a system call used to monitor multiple file descriptors to see if I/O is possible on any of them.<br>
+					It's used to handle many client connections simultaneously without using multithreading or blocking I/O.
+				</p>
+				<p>
+					Each file descriptor is represented by a <code>pollfd</code> struct, which includes:
+				</p>
+				<ul>
+					<li><code>fd</code>: the file descriptor to monitor</li>
+					<li><code>events</code>: the events to watch for (e.g., <code>POLLIN</code> for read readiness)</li>
+					<li><code>revents</code>: the events that actually occurred</li>
+				</ul>
+				<p>
+					The syntax: <code>int poll(struct pollfd *fds, nfds_t nfds, int timeout);</code><br>
+					Where <code>timeout</code> is the max time (ms) to wait, or -1 to wait indefinitely.
+				</p>
+
+				<h2>What is <code>POLLIN</code>?</h2>
+				<p>
+					<code>POLLIN</code> is a bitmask flag used with <code>poll()</code> to indicate that data is available to read on a file descriptor.
+					It applies to sockets, files, pipes, etc.
+				</p>
+				<p>
+					For a listening socket, <code>POLLIN</code> means a new client is trying to connect.<br>
+					For a client socket, <code>POLLIN</code> means the client has sent data that can be read.
+				</p>
+
+				<h2>What is <code>POLLOUT</code>?</h2>
+				<p>
+					<code>POLLOUT</code> indicates that the file descriptor is ready for writing — i.e., you can send data without blocking.
+				</p>
+				<p>
+					This is useful for non-blocking sockets where you want to ensure the socket is ready before attempting to write a response.
+				</p>
+
+				<h2>What is <code>accept()</code>?</h2>
+				<p>
+					<code>accept()</code> is a system call used on a listening socket to accept a new incoming connection request.
+				</p>
+				<p>
+					Syntax:<br>
+					<code>int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);</code>
+				</p>
+				<p>
+					- <code>sockfd</code> is the listening socket.<br>
+					- <code>addr</code> will be filled with the client's address info.<br>
+					- Returns a new socket file descriptor for communication with the client.
+				</p>
+				<p>
+					If <code>accept()</code> is successful, you get a new socket connected to the client, which you can then read from or write to.
+				</p>
+
+				<h2>Function: <code>ConfigParser::handleIncomingConnections()</code></h2>
+				<p>This function sets up the main server loop that listens for and processes client connections using <code>poll()</code>.</p>
+
+				<h3>Step-by-step Explanation:</h3>
+				<ol>
+					<li><strong>Socket setup:</strong> For each port at each <code>ServerConfig</code>, it sets up a listening socket and adds it to the <code>poll_fds</code> list.</li>
+					<li><strong>Main event loop:</strong> The server enters a loop that calls <code>poll()</code> repeatedly, waiting for events on the monitored file descriptors.</li>
+					<li><strong>Handling events:</strong>
+						<ul>
+							<li>If a listening socket has a <code>POLLIN</code> event, it accepts the new connection using <code>accept()</code>.</li>
+							<li>The new client socket is set to non-blocking mode and added to <code>poll_fds</code> for monitoring both <code>POLLIN</code> and <code>POLLOUT</code> events.</li>
+							<li>If a client socket is ready for reading or writing, <code>handleClientRequests</code> is called to process it.</li>
+						</ul>
+					</li>
+					<li><strong>Cleanup:</strong> At the end, all sockets are deleted and cleaned up properly.</li>
+				</ol>
+
+				<p>
+					This architecture allows the server to handle many clients efficiently in a single thread by multiplexing I/O with <code>poll()</code>.
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

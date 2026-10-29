@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>CGI test</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+			</script>
+			<div id="content">
+				<h1>CGI TEST</h1>
+				<button id="server-stats"><a style="text-decoration: none;color: white;" href="/cgi-bin/server-stats.sh">Server Stats</a></button>
+				<button id="run-cgi">Show me them kitties</button>
+				<div id="cgi-output"></div>
+				<script>
+					document.getElementById('run-cgi').addEventListener('click', () =>
+					{
+						fetch('./cgi-bin/test.cgi')
+						.then(response =>
+						{
+							if (!response.ok)
+							{
+								throw new Error('Network response was not ok');
+							}
+							return response.text();
+						})
+						.then(data =>
+						{
+							document.getElementById('cgi-output').innerHTML = data;
+						})
+						.catch(error =>
+						{
+							console.error('There was a problem with the fetch operation:', error);
+						});
+					});
+				</script>
+			</div>
+		</div>
+	</body>
+</html>

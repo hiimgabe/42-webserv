@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>CGI</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+			</script>
+			<div id="http-protocol">
+				<h1>Common Gateway Interface</h1>
+				<p><strong>CGI (Common Gateway Interface)</strong> is a standard protocol used to interface external programs 
+					with web servers to generate dynamic content.</p>
+				<h2>What is CGI?</h2>
+				<p>CGI allows the web server to pass user requests (from forms, URLs, etc.) to an external application 
+					(e.g., CPP, Python), and then return the application's output as part of the web 
+					response.</p>
+				<h2>How It Works</h2>
+				<ol>
+					<li>A client (usually a browser) sends an HTTP request to the server.</li>
+					<li>The server identifies a request meant for a CGI script (usually from a specific URL path or file extension).</li>
+					<li>The server executes the script as a separate process and passes request data to it using environment variables and standard input (stdin).</li>
+					<li>The CGI program processes the data and returns output through standard output (stdout), including HTTP headers and body.</li>
+					<li>The server sends this output back to the client as the HTTP response.</li>
+				</ol>
+				<h2>CGI Request</h2>
+				<img id="http-img" src="/assets/img/CGI-request.webp" alt="CGI Request">
+				<h2>Environment Variables in CGI</h2>
+				<p>Common environment variables passed by the server to a CGI script include:</p>
+				<ul>
+					<li><strong>REQUEST_METHOD</strong>: The HTTP method used (GET, POST, etc.)</li>
+					<li><strong>QUERY_STRING</strong>: Data passed in the URL for GET requests</li>
+					<li><strong>CONTENT_LENGTH</strong>: The length of the data for POST requests</li>
+					<li><strong>CONTENT_TYPE</strong>: MIME type of submitted data</li>
+					<li><strong>SCRIPT_NAME</strong>: Path to the CGI script</li>
+				</ul>
+				<h2>Example CGI Script (in Python)</h2>
+				<pre><code>#!/usr/bin/env python3
+print("Content-Type: text/html")
+print()
+print("&lt;html&gt;&lt;body&gt;Hello from Python CGI!&lt;/body&gt;&lt;/html&gt;")</code></pre>
+				<h2>Advantages of CGI</h2>
+				<ul>
+					<li><strong>Language Flexibility:</strong> CGI scripts can be written in any language that can read from 
+						standard input and write to standard output (e.g., CPP, Python).</li>
+					<li><strong>Simplicity:</strong> No need for additional modules or frameworks—just place the script and set 
+						permissions.</li>
+					<li><strong>Separation of Concerns:</strong> Keeps business logic separate from web server configuration.</li>
+					<li><strong>Educational Value:</strong> Great for learning how HTTP, environment variables, and server-side 
+						processing work at a low level.</li>				</ul>
+			</div>
+		</div>
+	</body>
+</html>

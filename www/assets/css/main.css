@@ -1,0 +1,139 @@
+
+html, body {
+	height: 10%;
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	font-family: 'Helvetica neue', Arial, sans-serif;
+	background: linear-gradient(0deg, rgba(176, 72, 169, 1) 35%, rgba(71, 139, 222, 1) 100%);
+	background-attachment: fixed;
+	background-size: cover;
+	color: #333;
+}
+
+code {
+	color: #c7254e;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1.05em;
+	padding: 0px 6px;
+	border-radius: 4px;
+}
+
+#container
+{
+	background-color: #fff;
+	margin: 10% auto;
+	min-height: 50%;
+	width: 80%;
+	padding: 2%;
+	border-radius: 5px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#content
+{
+	margin-top: 5%;
+	text-align: center;
+}
+
+#content img
+{
+	max-width: 25%;
+	max-height: 500px;
+	padding: 0 3%;
+}
+
+#http-protocol {
+	margin-top: 5%;
+}
+
+#msgBox {
+	width: 100%;
+	height: 120px;
+	font-size: 16px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	resize: vertical;
+}
+
+.message-output
+{
+	white-space: pre-wrap;
+	word-wrap: break-word;       
+	max-width: 100%;              
+	background-color: #f9f9f9;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 20px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+}
+
+button	{
+	padding: 10px 20px;
+	margin-top: 15px;
+	font-size: 16px;
+	background-color: rgba(71, 139, 222, 1);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+button:hover {
+	background-color: rgba(176, 72, 169, 1);
+}
+
+.team-profiles {
+	display: flex;
+	justify-content: center;
+	gap: 100px;
+}
+
+.profile {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	border: solid black 1px;
+	background-color: #ccc;
+	margin-bottom: 10px;
+	background-size: cover;
+	background-position: center;
+}
+
+#team-member1 {
+	background-image: url('/assets/img/gabriel.jpeg');
+}
+
+#team-member2 {
+	background-image: url('/assets/img/gabriela.jpeg');
+}
+
+#github-btn {
+	display: inline-block;
+	padding: 10px 30px;
+	background: rgba(71, 139, 222, 1);
+	color: #ffffff;
+	border-radius: 5px;
+	text-decoration: none;
+	font-weight: bold;
+	margin-top: 102%;
+}
+
+#github-btn:hover {
+	background: rgba(176, 72, 169, 1);
+}
+
+#about {
+	padding: 50px;
+}
+
+#http-img {
+	width: 40%;
+}

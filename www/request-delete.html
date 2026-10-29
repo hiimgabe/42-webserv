@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<link rel="stylesheet" href="/assets/css/header.css">
+		<link rel="stylesheet" href="/assets/css/navbar.css">
+		<title>Delete Method</title>
+	</head>
+	<body>
+		<div id="header">
+			<a href="/">
+				<img id="webserv-logo" src="/assets/img/webserv-logo.png" alt="webserv-logo">
+			</a>
+		</div>
+		<div id="container">
+			<div id="navbar"></div>
+			<script>
+				fetch('/navbar.html')
+				.then(res => res.text())
+				.then(data => { document.getElementById('navbar').innerHTML = data; });
+
+				function sendDelete() {
+					const path = document.getElementById("filePath").value;
+					if (!path) {
+						alert("Please enter a file path. ");
+						return;
+					}
+					const confirmed = confirm("Are you sure you want to delete this file?\n" + path);
+					if (!confirmed) return;
+
+					fetch(`${path}`, {
+						method: "DELETE"
+					})
+					.then(response => {
+						if (response.status === 200) {
+                			document.getElementById("result").innerText = "✅ File deleted successfully!";
+						} else if (response.status === 404) {
+                			document.getElementById("result").innerText = "❌ File not found.";
+            			} else {
+                			document.getElementById("result").innerText = "⚠️ Error: " + response.status;
+            			}
+					})
+					.catch(error => {
+						document.getElementById("result").innerText = "⚠️ Request failed.";
+            			console.error(error);
+					});
+				}
+					
+			</script>
+			<div id="content">
+				<h1>Try deleting these files!</h1>
+				<p>If you upload something you can delete it later.</p>
+
+				<h1>Try deleting using the path! eg: <code>/file.txt</code></h1>
+				<input type="text" id="filePath" placeholder="/data.txt">
+				<button onclick="sendDelete()">Delete</button>
+				<div id="result"></div>
+				
+			</div>
+		</div>
+	</body>
+</html>
